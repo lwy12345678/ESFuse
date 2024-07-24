@@ -91,9 +91,7 @@ class fusion_loss_vif(nn.Module):
     def forward(self, image_A, image_B, image_fused, device):
         image_A, image_B, image_fused = image_A.to(device), image_B.to(device), image_fused.to(device)
         loss_l1 =  self.L_Inten(image_A, image_B, image_fused)
-        # loss_gradient =  self.L_Grad(image_A, image_B, image_fused)
+        loss_gradient =  self.L_Grad(image_A, image_B, image_fused)
         loss_SSIM = 1 - self.L_SSIM(image_A, image_B, image_fused)
-        # fusion_loss = 20 * loss_l1 + 20 * loss_gradient + 10 * loss_SSIM
-        fusion_loss = 20 * loss_l1 + 10 * loss_SSIM
-        # return fusion_loss, loss_gradient, loss_l1, loss_SSIM
-        return fusion_loss
+        fusion_loss = 20 * loss_l1 + 20 * loss_gradient + 10 * loss_SSIM
+        return fusion_loss, loss_gradient, loss_l1, loss_SSIM

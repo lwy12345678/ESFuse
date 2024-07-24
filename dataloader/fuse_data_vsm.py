@@ -10,7 +10,7 @@ import numpy as np
 
 
 class GetDataset_type2(torch.utils.data.Dataset):
-    def __init__(self, split, ir_path=None, vi_path=None, edge_path=None, resize=True):
+    def __init__(self, split, ir_path=None, vi_path=None, resize=True):
         super(GetDataset_type2, self).__init__()
         assert split in ['train', 'val', 'test'], 'split must be "train"|"val"|"test"'
         self.resize = resize
@@ -18,10 +18,8 @@ class GetDataset_type2(torch.utils.data.Dataset):
         if split == 'train':
             data_dir_ir = ir_path
             data_dir_vis = vi_path
-            data_dir_edge = edge_path
             self.filepath_vis, self.filenames_vis = prepare_data_path(data_dir_vis)
             self.filepath_ir, self.filenames_ir = prepare_data_path(data_dir_ir)
-            self.filepath_edge, self.filenames_edge = prepare_data_path(data_dir_edge)
 
             self.split = split
             self.length = min(len(self.filenames_vis), len(self.filenames_ir))
@@ -39,13 +37,14 @@ class GetDataset_type2(torch.utils.data.Dataset):
             # print('-----------')
             vis_path = self.filepath_vis[index]
             ir_path = self.filepath_ir[index]
-            edge_path = self.filepath_edge[index]
 
             image_vis = Image.open(vis_path)
             # image_vis = cv2.imread(vis_path, cv2.IMREAD_GRAYSCALE)
+            image_vis_y = cv2.imread(vis_path, 0)
             image_inf = cv2.imread(ir_path, 0)
-            image_edge = cv2.imread(edge_path, 0)
-
+            sobel_vi = cv2.Sobel(image_vis_y, cv2.CV_64F, 1, 0, ksize=5)
+            sobel_ir = cv2.Sobel(image_inf, cv2.CV_64F, 1, 0, ksize=5)
+            image_edge = np.maximum(sobel_vi, sobel_ir) / 255.0
 
             image_vis = np.array(image_vis)
             image_vis = (
@@ -54,8 +53,8 @@ class GetDataset_type2(torch.utils.data.Dataset):
                 )
                 / 255.0
             )
+
             image_ir = np.asarray(Image.fromarray(image_inf), dtype=np.float32) / 255.0
-            image_edge = np.asarray(Image.fromarray(image_edge), dtype=np.float32) / 255.0
             image_ir = np.expand_dims(image_ir, axis=0)
             image_edge = np.expand_dims(image_edge, axis=0)
 

@@ -1,4 +1,13 @@
 # ESFuse: Weak Edge Structure Perception Network for Infrared and Visible Image Fusion
+
+Liu, W.; Tan, H.; Cheng, X*.; Li, X*    
+Publish in: Electronics
+
+Liu, W.; Tan, H.; Cheng, X.; Li, X. ESFuse: Weak Edge 
+Structure Perception Network for Infrared and Visible Image Fusion. 
+Electronics 2024, 13, 4115.
+### [Paper](https://www.mdpi.com/2079-9292/13/20/4115) | [Code](https://github.com/lwy12345678/ESFuse) 
+
 ## Abstract
 Infrared and visible image fusion (IVIF) fully integrates the complementary 
 features of different modal images, and the fused image provides a more 
@@ -20,7 +29,6 @@ publicly available datasets show that the proposed ESFuse outperforms the
 state-of-the-art(SOTA) methods in both subjective vision and objective evaluation,
 and our fusion results perform well in semantic segmentation, target detection, 
 pose estimation and depth estimation tasks.
-### [Paper](https://www.mdpi.com/2079-9292/13/20/4115) | [Code](https://github.com/lwy12345678/ESFuse) 
 
 
 ![Framework](framework.png)

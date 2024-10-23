@@ -1,9 +1,37 @@
 # ESFuse: Weak Edge Structure Perception Network for Infrared and Visible Image Fusion
+## Abstract
+Infrared and visible image fusion (IVIF) fully integrates the complementary 
+features of different modal images, and the fused image provides a more 
+comprehensive and objective interpretation of the scene compared to each source 
+image, thus attracting extensive attention in the field of computer vision in 
+recent years. However, current fusion methods usually center their attention on 
+the extraction of prominent features, falling short of adequately safeguarding 
+subtle and diminutive structures. To address this problem, we propose an end-to-end
+unsupervised IVIF method (ESFuse), which effectively enhances fine edges and 
+small structures. In particular, we introduce a two-branch head interpreter 
+to extract features from source images of different modalities. Subsequently, 
+these features are fed into the edge refinement module with the detail injection 
+module (DIM) to obtain the edge detection results of the source image, improving 
+the network’s ability to capture and retain complex details as well as global 
+information. Finally, we implemented a multiscale feature reconstruction module 
+to obtain the final fusion results by combining the output of the DIM with the 
+output of the head interpreter. Extensive IVIF fusion experiments on existing 
+publicly available datasets show that the proposed ESFuse outperforms the 
+state-of-the-art(SOTA) methods in both subjective vision and objective evaluation,
+and our fusion results perform well in semantic segmentation, target detection, 
+pose estimation and depth estimation tasks.
 ### [Paper](https://www.mdpi.com/2079-9292/13/20/4115) | [Code](https://github.com/lwy12345678/ESFuse) 
 
 
 ![Framework](framework.png)
 
+## Note
+In 'train.py' and 'test/test.py' file, you will find how to run these codes.
+
+We train our network using MSRS as input images which contains 1083 pairs 
+images and all resize to 64×64 and RGB images are transformed to gray ones. 
+Learning rate is 1×10^(-4). The batch size and epochs are 32 and 30, respectively. 
+Our method is implemented with two RTX 3090.
 ## 1. Platform
 
 Python 3.8  
